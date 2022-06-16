@@ -1,5 +1,6 @@
 import { Button, Rating } from "@mui/material";
 import { useState } from 'react';
+import { Header } from "./components/Header"
 
 
 function App() {
@@ -11,9 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      
-      <Button variant="contained" onClick={() => { btnClicked("Nieuwe Naam") }}>{name}</Button>
-      <Rating name="simple-controlled" value={1 + 1}/>
+      <Header />
     </div>
   );
 
