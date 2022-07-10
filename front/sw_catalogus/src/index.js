@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Films from "./pages/Films";
 import Series from "./pages/Series";
+import Item from "./pages/Item";
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material';
@@ -15,6 +16,7 @@ export default function App() {
         <Route path='/'>
           <Route index element={<Films />} />
           <Route path='series' element={<Series /> }/>
+          <Route path='item' element={<Item /> }/>
         </Route>
       </Routes>
     </BrowserRouter>
