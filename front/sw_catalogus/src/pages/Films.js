@@ -1,10 +1,10 @@
 import { Button, Rating } from "@mui/material";
 import { useLayoutEffect, useEffect, useState, useRef } from 'react';
-import { Header } from "./components/Header"
-import { ItemLijst } from "./components/ItemLijst";
+import { Header } from "../components/Header"
+import { ItemLijst } from "../components/ItemLijst";
 
 
-function App() {
+const Films = () => {
   const [films, setFilms] = useState([
     {
         id: 1,
@@ -21,7 +21,7 @@ function App() {
         titel: 'A New Hope',
         image: '/images/background/anh.png'
     }
-]);
+    ]);
 
 
   return (
@@ -34,4 +34,4 @@ function App() {
 
 }
 
-export default App;
+export default Films;

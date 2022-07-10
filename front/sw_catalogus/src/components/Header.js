@@ -2,6 +2,7 @@ import { AppBar, Container, Typography, Toolbar, Box, Button } from '@mui/materi
 import React from 'react'
 import Logo from "../images/logo.png"
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import { Outlet, Link } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -18,8 +19,8 @@ export const Header = () => {
             />
 
             <Toolbar sx={{ flexGrow: 1 }}>
-                <Button size="medium" color="inherit">Films</Button>
-                <Button size="medium" color="inherit">Series</Button>
+                <Button size="medium" color="inherit"><Link style={{ color: 'white', textDecoration: 'none' }} to="/">Films</Link></Button>
+                <Button size="medium" color="inherit"><Link style={{ color: 'white', textDecoration: 'none' }} to="/series">Series</Link></Button>
                 <Button size="medium" color="inherit">Animated Series</Button>
                 <Button size="medium" color="inherit">Vintage</Button>
             </Toolbar>
