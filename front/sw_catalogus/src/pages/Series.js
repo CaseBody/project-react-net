@@ -5,13 +5,17 @@ import { ItemLijst } from "../components/ItemLijst";
 
 
 const Series = () => {
-  const [series, setSeries] = useState([
-    {
-        id: 1,
-        titel: 'The Empire Strikes Back',
-        image: '/images/background/esb.png'
-    },
-    ]);
+  const [series, setSeries] = useState([]);
+
+    useEffect(()=>{
+      fetch('https://localhost:7192/api/Item')
+        .then(response => response.json())
+        .then(response => {
+            response = response.filter(item => { return item.categorie == 'Series' });
+            const order = response.sort((a, b) => a.uitgaveJaar - b.uitgaveJaar);
+            setSeries(order);
+        })
+    }, []);
 
 
   return (
