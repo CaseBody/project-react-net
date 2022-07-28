@@ -10,5 +10,7 @@ namespace SWCatalogusAPI.Data
         }
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<Gebruiker> Gebruikers { get; set; }
+
     }
 }
