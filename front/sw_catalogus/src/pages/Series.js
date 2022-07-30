@@ -1,4 +1,4 @@
-import { Button, Rating } from "@mui/material";
+import { Box, Button, Rating } from "@mui/material";
 import { useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { Header } from "../components/Header"
 import { ItemLijst } from "../components/ItemLijst";
@@ -22,7 +22,9 @@ const Series = () => {
     <div className="App">
       <Header/>
 
-      <ItemLijst items={series}/>
+      <Box sx={{ backgroundColor: "background.paper", width: '100%', minHeight:  'calc(100vh - 64px)' }}>
+        {series && <ItemLijst items={series}/>}
+      </Box>
     </div>
   );
 
