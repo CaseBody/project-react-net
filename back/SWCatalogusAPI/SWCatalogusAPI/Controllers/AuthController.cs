@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using SWCatalogusAPI.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -13,11 +14,14 @@ namespace SWCatalogusAPI.Controllers
     {
         private readonly DataContext dataContext;
         private readonly IConfiguration configuration;
+        private readonly JWTService jwtService;
+
 
         public AuthController(DataContext dataContext, IConfiguration configuration)
         {
             this.dataContext = dataContext;
             this.configuration = configuration;
+            jwtService = new JWTService(configuration.GetSection("AppSettings:Token").Value);
         }
 
         [HttpPost("register")]
@@ -57,25 +61,7 @@ namespace SWCatalogusAPI.Controllers
                 return BadRequest("Naam en wachtwoord komen niet overeen");
             }
 
-            return Ok(CreateJWT(gebruiker));
-        }
-
-        private string CreateJWT(Gebruiker gebruiker)
-        {
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, gebruiker.Id.ToString())
-            };
-
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value));
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: cred);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return Ok(jwtService.CreateJWT(gebruiker));
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
