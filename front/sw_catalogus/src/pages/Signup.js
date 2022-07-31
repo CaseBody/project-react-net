@@ -114,12 +114,12 @@ const Signup = () => {
                 src={Logo}
             />
 
-            <Typography variant="h4" component="h3">Create Account</Typography>
+            <Typography variant="h4" component="h3">Account Aanmaken</Typography>
             <TextField helperText={usernameHelper} error={usernameError} value={username} onChange={(e) => {setUsername(e.target.value);}} id="outlined-helperText" label="Gebruikersnaam" sx = {{marginTop: "20px"}}></TextField>
             <TextField helperText={passwordHelper} error={passwordError} value={password} onChange={(e) => {setPassword(e.target.value)}} id="outlined-password-input" label="Wachtwoord" type="password" autoComplete="current-password"></TextField>
             <TextField helperText={passwordHelper} error={passwordError} value={passwordConfirm} onChange={(e) => {setPasswordConfirm(e.target.value)}} id="outlined-password-input" label="Bevestig Wachtwoord" type="password" autoComplete="current-password"></TextField>
             <Box sx = {{display: 'flex'}}>
-                <Button sx = {{position: 'relative'}} disabled={loginDisabled} onClick={onLoginClick} variant="outlined" size="large" >Signup</Button>
+                <Button sx = {{position: 'relative'}} disabled={loginDisabled} onClick={onLoginClick} variant="outlined" size="large" >Aanmelden</Button>
                 {loading && 
             <CircularProgress
             size={24}
@@ -128,7 +128,7 @@ const Signup = () => {
                marginLeft: "30px",
                marginTop: "10px"
             }}/>}
-            </Box>            <Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/login'); }}>Login</Link>
+            </Box><Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/login'); }}>Login</Link>
         </Paper>
         </Box>   
     </div>

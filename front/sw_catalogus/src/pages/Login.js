@@ -139,7 +139,7 @@ const Login = () => {
                marginTop: "10px"
             }}/>}
             </Box>
-            <Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/signup'); }}>Signup</Link>
+            <Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/signup'); }}>Account aanmaken</Link>
           
         </Paper>
         </Box>   
