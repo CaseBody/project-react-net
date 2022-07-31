@@ -7,7 +7,7 @@ import jwtDecode from "jwt-decode";
 import {useNavigate} from 'react-router-dom';
 
 
-const Login = () => {
+const Signup = () => {
     let [username, setUsername] = useState("")
     let [usernameError, setUsernameError] = useState(false)
     let [usernameHelper, setUsernameHelper] = useState("")
@@ -15,13 +15,14 @@ const Login = () => {
     let [password, setPassword] = useState("")
     let [passwordError, setPasswordError] = useState(false)
     let [passwordHelper, setPasswordHelper] = useState("")
+    let [passwordConfirm, setPasswordConfirm] = useState("")
 
     let [loading, setLoading] = useState(null)
     let [loginDisabled, setLoginDisabled] = useState(false)
 
     const navigate = useNavigate();
 
-    const onLoginClick = () => {
+    function onLoginClick() {
         if (username == "")
         {
             setUsernameError(true);
@@ -34,7 +35,7 @@ const Login = () => {
             setUsernameHelper("");
         }
 
-        if (password == "")
+        if (password == "" || passwordConfirm == "")
         {
             setPasswordError(true);
             setPasswordHelper("Please fill in the Password field");
@@ -46,10 +47,21 @@ const Login = () => {
             setPasswordHelper("");
         }
 
-        setLoginDisabled(true);
-        setLoading(true);
+        if (password != passwordConfirm)
+        {
+            setPasswordError(true);
+            setPasswordHelper("Password does not match!");
+            return;
+        }
+        else
+        {
+            setPasswordError(false);
+            setPasswordHelper("");
+        }
 
-        fetch('https://localhost:7192/api/Auth/login', {
+        let accept = false;
+
+        fetch('https://localhost:7192/api/Auth/register', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -61,55 +73,32 @@ const Login = () => {
             })
         })
         .then(response => {
-            if (response.status == 404)
+            if (response.status == 400)
             {
                 setUsernameError(true);
-                setUsernameHelper("User does not exist");
-            }
-            else if (response.status == 400)
-            {
-                setUsernameError(true);
-                setUsernameHelper("Incorrect username/password");
-
-                setPasswordError(true);
-                setPasswordHelper("Incorrect username/password");
+                setUsernameHelper("Username is taken!");
             }
             else if (response.status == 200)
             {
-                LoggedIn(response);
+                navigate("/login")
             }
             else{
                 setUsernameError(true);
-                setUsernameHelper("Error logging in");
+                setUsernameHelper("Error creating account");
 
                 setPasswordError(true);
-                setPasswordHelper("Error logging in");
+                setPasswordHelper("Error creating account");
             }
 
         })
+        .catch(() => {
+            setUsernameError(true);
+            setUsernameHelper("Error creating account");
 
-        setLoginDisabled(null);
-        setLoading(false);
+            setPasswordError(true);
+            setPasswordHelper("Error creating account");
+        })
     }
-
-    const LoggedIn = (response) => {
-        response = response.json().then(token => {
-            const decoded = jwtDecode(token);
-
-            sessionStorage.setItem("logged_in", "true")
-            sessionStorage.setItem("token", token)
-            sessionStorage.setItem("gebruiker", decoded['gebruiker'])
-
-            navigate("/account")
-        });
-    }
-
-    useEffect(()=>{
-        if (sessionStorage.getItem("logged_in") === "true")
-        {
-            navigate("/account")
-        }
-      }, []);
 
     return (
     <div className="App">
@@ -125,11 +114,12 @@ const Login = () => {
                 src={Logo}
             />
 
-            <Typography variant="h4" component="h3">Login</Typography>
+            <Typography variant="h4" component="h3">Create Account</Typography>
             <TextField helperText={usernameHelper} error={usernameError} value={username} onChange={(e) => {setUsername(e.target.value);}} id="outlined-helperText" label="Username" sx = {{marginTop: "20px"}}></TextField>
             <TextField helperText={passwordHelper} error={passwordError} value={password} onChange={(e) => {setPassword(e.target.value)}} id="outlined-password-input" label="Password" type="password" autoComplete="current-password"></TextField>
+            <TextField helperText={passwordHelper} error={passwordError} value={passwordConfirm} onChange={(e) => {setPasswordConfirm(e.target.value)}} id="outlined-password-input" label="Confirm Password" type="password" autoComplete="current-password"></TextField>
             <Box sx = {{display: 'flex'}}>
-                <Button sx = {{position: 'relative'}} disabled={loginDisabled} onClick={onLoginClick} variant="outlined" size="large" >Login</Button>
+                <Button sx = {{position: 'relative'}} disabled={loginDisabled} onClick={onLoginClick} variant="outlined" size="large" >Signup</Button>
                 {loading && 
             <CircularProgress
             size={24}
@@ -138,9 +128,7 @@ const Login = () => {
                marginLeft: "30px",
                marginTop: "10px"
             }}/>}
-            </Box>
-            <Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/signup'); }}>Signup</Link>
-          
+            </Box>            <Link  sx = {{marginBottom: "20px", cursor: "pointer"}} onClick={() => { navigate('/login'); }}>Login</Link>
         </Paper>
         </Box>   
     </div>
@@ -148,4 +136,4 @@ const Login = () => {
 
 }
 
-export default Login;
+export default Signup;

@@ -10,6 +10,7 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from "./theme"
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
+import Signup from './pages/Signup';
 
 export default function App() {
   return(
@@ -20,6 +21,7 @@ export default function App() {
           <Route path='series' element={<Series /> }/>
           <Route path='item' element={<Item /> }/>
           <Route path='login' element={<Login /> }/>
+          <Route path='signup' element={<Signup /> }/>
           <Route path='*' element={<NotFound /> }/>
         </Route>
       </Routes>
