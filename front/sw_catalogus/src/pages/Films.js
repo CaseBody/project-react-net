@@ -1,4 +1,4 @@
-import { Box, Button, Rating } from "@mui/material";
+import { Box, Button, Rating, Typography } from "@mui/material";
 import { Component, useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { Header } from "../components/Header"
 import { ItemLijst } from "../components/ItemLijst";

@@ -11,6 +11,7 @@ import { theme } from "./theme"
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
+import Account from './pages/Account';
 
 export default function App() {
   return(
@@ -22,6 +23,7 @@ export default function App() {
           <Route path='item' element={<Item /> }/>
           <Route path='login' element={<Login /> }/>
           <Route path='signup' element={<Signup /> }/>
+          <Route path='account' element={<Account /> }/>
           <Route path='*' element={<NotFound /> }/>
         </Route>
       </Routes>

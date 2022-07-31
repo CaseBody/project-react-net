@@ -51,7 +51,7 @@ namespace SWCatalogusAPI.Controllers
         }
 
         [HttpGet("opgeslagen")]
-        public async Task<ActionResult<List<OpgeslagenItem>>> GetOpgeslagenItems(string id, string token)
+        public async Task<ActionResult<List<Item>>> GetOpgeslagenItems(string id, string token)
         {
             if (jwtService.ValidateAndReadJWT(token, out ClaimsPrincipal? validatedToken))
             {
@@ -68,9 +68,19 @@ namespace SWCatalogusAPI.Controllers
                     if (items == null)
                         return NotFound();
 
-                    var list = new List<OpgeslagenItem>(items);
+                    var list_opgeslagen = new List<OpgeslagenItem>(items);
+                    List<Item> films = new List<Item>();
+                    foreach (var item in list_opgeslagen)
+                    {
+                        var x = dataContext.Items.Where(i => i.Id == item.ItemId).FirstOrDefault();
+                        if (x != null)
+                        {
+                            films.Add(x);
+                        }
 
-                    return Ok(list);
+                    }
+
+                    return Ok(films);
                 }
                 catch
                 {

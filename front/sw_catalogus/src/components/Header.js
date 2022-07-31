@@ -28,7 +28,7 @@ export const Header = () => {
                 <Button size="medium" color="inherit">Vintage</Button>
             </Toolbar>
 
-            <Button startIcon={<AccountBoxOutlinedIcon fontSize='large'/>} size="large" color="inherit">Account</Button>
+            <Button startIcon={<AccountBoxOutlinedIcon fontSize='large'/>} size="large" color="inherit" onClick={() => { navigate('/account'); }}>Account</Button>
             </Toolbar>
         </Container>
     </AppBar>
