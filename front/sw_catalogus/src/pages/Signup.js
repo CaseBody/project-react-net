@@ -26,7 +26,7 @@ const Signup = () => {
         if (username == "")
         {
             setUsernameError(true);
-            setUsernameHelper("Please fill in the Username field");
+            setUsernameHelper("Voer het Gebruikersnaam veld in");
             return;
         }
         else
@@ -38,7 +38,7 @@ const Signup = () => {
         if (password == "" || passwordConfirm == "")
         {
             setPasswordError(true);
-            setPasswordHelper("Please fill in the Password field");
+            setPasswordHelper("Voer het Wachtwoord veld in");
             return;
         }
         else
@@ -50,7 +50,7 @@ const Signup = () => {
         if (password != passwordConfirm)
         {
             setPasswordError(true);
-            setPasswordHelper("Password does not match!");
+            setPasswordHelper("Wachtwoord komt niet overeen");
             return;
         }
         else
@@ -76,7 +76,7 @@ const Signup = () => {
             if (response.status == 400)
             {
                 setUsernameError(true);
-                setUsernameHelper("Username is taken!");
+                setUsernameHelper("Gebruikersnaam is in gebruik");
             }
             else if (response.status == 200)
             {
@@ -84,19 +84,19 @@ const Signup = () => {
             }
             else{
                 setUsernameError(true);
-                setUsernameHelper("Error creating account");
+                setUsernameHelper("");
 
                 setPasswordError(true);
-                setPasswordHelper("Error creating account");
+                setPasswordHelper("Fout tijdens account creatie");
             }
 
         })
         .catch(() => {
             setUsernameError(true);
-            setUsernameHelper("Error creating account");
+            setUsernameHelper("Fout tijdens account creatie");
 
             setPasswordError(true);
-            setPasswordHelper("Error creating account");
+            setPasswordHelper("Fout tijdens account creatie");
         })
     }
 
@@ -115,9 +115,9 @@ const Signup = () => {
             />
 
             <Typography variant="h4" component="h3">Create Account</Typography>
-            <TextField helperText={usernameHelper} error={usernameError} value={username} onChange={(e) => {setUsername(e.target.value);}} id="outlined-helperText" label="Username" sx = {{marginTop: "20px"}}></TextField>
-            <TextField helperText={passwordHelper} error={passwordError} value={password} onChange={(e) => {setPassword(e.target.value)}} id="outlined-password-input" label="Password" type="password" autoComplete="current-password"></TextField>
-            <TextField helperText={passwordHelper} error={passwordError} value={passwordConfirm} onChange={(e) => {setPasswordConfirm(e.target.value)}} id="outlined-password-input" label="Confirm Password" type="password" autoComplete="current-password"></TextField>
+            <TextField helperText={usernameHelper} error={usernameError} value={username} onChange={(e) => {setUsername(e.target.value);}} id="outlined-helperText" label="Gebruikersnaam" sx = {{marginTop: "20px"}}></TextField>
+            <TextField helperText={passwordHelper} error={passwordError} value={password} onChange={(e) => {setPassword(e.target.value)}} id="outlined-password-input" label="Wachtwoord" type="password" autoComplete="current-password"></TextField>
+            <TextField helperText={passwordHelper} error={passwordError} value={passwordConfirm} onChange={(e) => {setPasswordConfirm(e.target.value)}} id="outlined-password-input" label="Bevestig Wachtwoord" type="password" autoComplete="current-password"></TextField>
             <Box sx = {{display: 'flex'}}>
                 <Button sx = {{position: 'relative'}} disabled={loginDisabled} onClick={onLoginClick} variant="outlined" size="large" >Signup</Button>
                 {loading && 

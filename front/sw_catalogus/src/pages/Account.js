@@ -1,4 +1,4 @@
-import { Box, Button, Rating, Typography } from "@mui/material";
+import { CircularProgress, Box, Button, Rating, Typography } from "@mui/material";
 import { Component, useLayoutEffect, useEffect, useState, useRef } from 'react';
 import { Header } from "../components/Header"
 import { ItemLijst } from "../components/ItemLijst";
@@ -8,6 +8,7 @@ import {useNavigate} from 'react-router-dom';
 const Account = () => {
     const [films, setFilms] = useState(null);
     const [gebruiker, setGebruiker] = useState("213213");
+    let [show, setShow] = useState(false);
 
     const navigate = useNavigate();
 
@@ -52,6 +53,7 @@ const Account = () => {
                     e = e.filter(item => { return item.categorie == 'Films' });
                     const order = e.sort((a, b) => a.uitgaveJaar - b.uitgaveJaar);
                     setFilms(order);
+                    setTimeout(() => {setShow(true)}, 250)
                 })
             }
             else
@@ -67,12 +69,25 @@ const Account = () => {
         })
     }, []);
 
+    const Content = () => {
+        if (show)
+        {
+            return <Box sx={{ backgroundColor: "background.paper", width: '100%', minHeight:  'calc(100vh - 64px)' }}>
+            <Typography color="textPrimary" variant="h2" sx = {{padding: "10px"}}>{gebruiker}'s Kijk Lijst</Typography>
+            {films && <ItemLijst items={films}/>}
+          </Box>
+        }
+        else
+        {
+            return <Box sx = {{width: "100%", height: "calc(100vh - 64px)", display: "flex", justifyContent: "center", alignItems: "center"}}><CircularProgress size={60}></CircularProgress></Box>
+        }
+    }
+
   return (
     <div className="App">
       <Header/>
       <Box sx={{ backgroundColor: "background.paper", width: '100%', minHeight:  'calc(100vh - 64px)' }}>
-        <Typography color="textPrimary" variant="h2" sx = {{padding: "10px"}}>{gebruiker}'s Watch List</Typography>
-        {films && <ItemLijst items={films}/>}
+        <Content />
       </Box>
     </div>
   );

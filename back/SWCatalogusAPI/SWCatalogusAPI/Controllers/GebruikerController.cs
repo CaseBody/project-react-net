@@ -93,5 +93,83 @@ namespace SWCatalogusAPI.Controllers
                 return Unauthorized("JWT was invalid.");
             }
         }
+
+        [HttpDelete("opgeslagen")]
+        public async Task<ActionResult> RemoveOpgeslagenItem(string gebruikerid, string itemid, string token)
+        {
+            if (jwtService.ValidateAndReadJWT(token, out ClaimsPrincipal? validatedToken))
+            {
+                try
+                {
+                var user = validatedToken.Claims.First(c => c.Type == "gebruiker").Value;
+
+                if (user != gebruikerid)
+                {
+                    return BadRequest();
+                }
+
+                var item = dataContext.OpgeslagenItems.Where(i => i.ItemId == int.Parse(itemid));
+                if (item.FirstOrDefault() == null)
+                    return NotFound();
+
+                dataContext.OpgeslagenItems.Remove(item.FirstOrDefault());
+                dataContext.SaveChanges();
+
+                return Ok();
+                }
+                catch
+                {
+                return BadRequest();
+                }
+
+            }
+            else
+            {
+                return Unauthorized("JWT was invalid.");
+            }
+        }
+
+        [HttpPost("opgeslagen")]
+        public async Task<ActionResult> AddOpgeslagenItem(string gebruikerid, string itemid, string token)
+        {
+            if (jwtService.ValidateAndReadJWT(token, out ClaimsPrincipal? validatedToken))
+            {
+                try
+                {
+                    var user = validatedToken.Claims.First(c => c.Type == "gebruiker").Value;
+
+                    if (user != gebruikerid)
+                    {
+                        return BadRequest();
+                    }
+
+                    var itemExist = dataContext.OpgeslagenItems.Where(i => i.ItemId == int.Parse(itemid));
+                    if (itemExist.FirstOrDefault() != null)
+                        return BadRequest();
+
+                    var item = dataContext.Items.Where(i => i.Id == int.Parse(itemid));
+                    if (item.FirstOrDefault() == null)
+                        return NotFound();
+
+                    OpgeslagenItem newItem = new OpgeslagenItem();
+                    newItem.ItemId = int.Parse(itemid);
+                    newItem.GebruikerId = int.Parse(gebruikerid);
+
+                    dataContext.OpgeslagenItems.Add(newItem);
+                    dataContext.SaveChanges();
+
+                    return Ok();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+
+            }
+            else
+            {
+                return Unauthorized("JWT was invalid.");
+            }
+        }
     }
 }
