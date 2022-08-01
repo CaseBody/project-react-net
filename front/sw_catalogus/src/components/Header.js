@@ -41,8 +41,7 @@ export const Header = () => {
             <Toolbar sx={{ flexGrow: 1 }}>
                 <Button size="medium" color="inherit" onClick={() => { navigate('/'); }}>Films</Button>
                 <Button size="medium" color="inherit" onClick={() => { navigate('/series'); }}>Series</Button>
-                <Button size="medium" color="inherit">Animated Series</Button>
-                <Button size="medium" color="inherit">Vintage</Button>
+                <Button size="medium" color="inherit" onClick={() => { navigate('/vintage'); }}>Vintage</Button>
             </Toolbar>
 
              <div>

@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
+import Vintage from './pages/Vintage';
 
 export default function App() {
   return(
@@ -24,6 +25,7 @@ export default function App() {
           <Route path='login' element={<Login /> }/>
           <Route path='signup' element={<Signup /> }/>
           <Route path='account' element={<Account /> }/>
+          <Route path='vintage' element={<Vintage	 /> }/>
           <Route path='*' element={<NotFound /> }/>
         </Route>
       </Routes>

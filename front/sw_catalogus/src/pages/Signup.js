@@ -114,7 +114,7 @@ const Signup = () => {
                 src={Logo}
             />
 
-            <Typography variant="h4" component="h3">Account Aanmaken</Typography>
+            <Typography variant="h4" component="h3">Account Creëren</Typography>
             <TextField helperText={usernameHelper} error={usernameError} value={username} onChange={(e) => {setUsername(e.target.value);}} id="outlined-helperText" label="Gebruikersnaam" sx = {{marginTop: "20px"}}></TextField>
             <TextField helperText={passwordHelper} error={passwordError} value={password} onChange={(e) => {setPassword(e.target.value)}} id="outlined-password-input" label="Wachtwoord" type="password" autoComplete="current-password"></TextField>
             <TextField helperText={passwordHelper} error={passwordError} value={passwordConfirm} onChange={(e) => {setPasswordConfirm(e.target.value)}} id="outlined-password-input" label="Bevestig Wachtwoord" type="password" autoComplete="current-password"></TextField>

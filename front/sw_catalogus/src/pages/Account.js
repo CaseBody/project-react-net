@@ -50,9 +50,7 @@ const Account = () => {
             if (response.status == 200)
             {
                 response = response.json().then((e) => {
-                    e = e.filter(item => { return item.categorie == 'Films' });
-                    const order = e.sort((a, b) => a.uitgaveJaar - b.uitgaveJaar);
-                    setFilms(order);
+                    setFilms(e);
                     setTimeout(() => {setShow(true)}, 250)
                 })
             }
